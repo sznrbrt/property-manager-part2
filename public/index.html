@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Management</title>
+
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Asap:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+  <script src="/js/module.js"></script>
+  <script src="/js/controllers.js"></script>
+  <script src="/js/services.js"></script>
+</head>
+<body ng-app="propertyManagerApp">
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li class="active logo"><span class="glyphicon glyphicon-tower"></span>Property Manager</li>
+          <li><a ui-sref="properties"><span class="glyphicon glyphicon-home"></span>Properties</a></li>
+          <li><a ui-sref="clients"><span class="glyphicon glyphicon-user"></span>Clients</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Where the templates go -->
+    <ui-view></ui-view>
+    <!--  -->
+</body>
+</html>

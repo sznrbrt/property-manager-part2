@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Edit Property</div>
+      <div class="panel-body">
+
+        <form class="form-horizontal" role="form" ng-submit="editProperty()">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Address</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Enter the address" ng-model="editedProperty.address" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Status</label>
+            <select id="pulled" ng-model="editedProperty.status" placeholder="Enter the property's status" required>
+              <option value="" disabled selected>Select the property's status</option>
+              <option value="Available">Available</option>
+              <option value="Occupied">Occupied</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email"># Rooms</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Enter the number of rooms" ng-model="editedProperty.roomNum" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Rent Price</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Enter the rent price" ng-model="editedProperty.rentPrice" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Utility Cost</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Enter the utility cost" ng-model="editedProperty.utilCost" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Add tenants</label>
+            <div class="col-sm-10">
+              <input ng-disabled="true" type="text" class="form-control" placeholder="Soon you'll be able to add tenants" ng-model="editedProperty.tenants" required>
+            </div>
+          </div>
+          <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <button class="btn btn-success" type="submit">Edit</button>
+             <button class="btn btn-warning" ng-click="reset()">Reset Changes</button>
+             <button class="btn btn-danger" ng-click="cancel()">Cancel & Reset Changes</button>
+           </div>
+         </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

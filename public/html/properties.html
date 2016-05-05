@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-2 sidebar">
+      <div class="row text-left sidebarContent">
+        <h4><b>Show results for:</b></h4>
+        <button type="button" class="btn btn-link filterButton" ng-click="showAll()"><b>Show All</b></button>
+        <h5>Status:</h5>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({status: 'Available'})">Show only available properties</button>
+        <h5>Rooms:</h5>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({roomNum: {$gt: 3}})">Rooms > 3</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({roomNum: {$gt: 5}})">Rooms > 5</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({roomNum: {$gt: 8}})">Rooms > 8</button>
+        <h5>Rent price:</h5>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({rentPrice: {$lt: 600}})">Rent price < $600</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({rentPrice: {$lt: 1200}})">Rent price < $1200</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({rentPrice: {$gt: 1200}})">Rent price > $1200</button>
+        <h5>Utility cost:</h5>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({utilCost: {$lt: 150}})">Utility cost < $150</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({utilCost: {$lt: 300}})">Utlitiy cost < $300</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({utilCost: {$gt: 300}})">Utility cost > $300</button>
+
+      </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-2 content">
+      <div class="row">
+
+        <div class="col-xs-12 addPropPanel">
+          <button class="btn btn-default addProperty" ng-click="openAddProperty()">
+            <span class="glyphicon glyphicon-plus"></span> Add property
+          </button>
+        </div>
+        <div class="col-xs-12" ng-if="addingProperty">
+          <div class="row text-center">
+            <h4>New Property:</h4>
+          </div>
+          <form class="form-horizontal" role="form" ng-submit="addNewProperty()">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Address</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter the address" ng-model="newProperty.address" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Status</label>
+              <div class="col-sm-10">
+                <select ng-model="newProperty.status" placeholder="Enter the property's status" required>
+                  <option value="" disabled selected>Select the property's status</option>
+                  <option value="Available">Available</option>
+                  <option value="Occupied">Occupied</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2"># Rooms</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" placeholder="Enter the number of rooms" ng-model="newProperty.roomNum" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">Rent Price</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" placeholder="Enter the rent price" ng-model="newProperty.rentPrice" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">Utility Cost</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" placeholder="Enter the utility cost" ng-model="newProperty.utilCost" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">Add tenants</label>
+              <div class="col-sm-10">
+                <div class="checkbox" ng-repeat="tenant in possibleTenants">
+                  <label><input type="checkbox" ng-model="newProperty.tenants[tenant._id]" value="{{ tenant._id }}">{{ tenant.name }} - Phone: {{ tenant.phone }}</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+             <div class="col-sm-offset-2 col-sm-10">
+               <button class="btn btn-danger" ng-click="clear()">Cancel</button>
+               <button class="btn btn-warning" type="submit">Add</button>
+             </div>
+           </div>
+          </form>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group search">
+              <label>Search:</label>
+              <input type="text" class="form-control" ng-model='searchFilter'>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <table class="table table-hover">
+              <thead>
+                <th>Status</th>
+                <th>Address</th>
+                <th># Rooms</th>
+                <th>Rent Price</th>
+                <th>Utility Cost</th>
+                <th>Tenants</th>
+                <th></th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="property in properties | filter:searchFilter track by $index">
+                  <td>{{ property.status }}</td>
+                  <td>{{ property.address }}</td>
+                  <td>{{ property.roomNum }}</td>
+                  <td>{{ property.rentPrice | currency }}</td>
+                  <td>{{ property.utilCost | currency }}</td>
+                  <td>
+                    <div ng-repeat="tenant in property.tenants track by $index">
+                      {{ tenant.name }} <span><a class="removeClient" ng-click="removeTenant(property._id, tenant, property)">Remove</a></span></td>
+                    </div>
+                  </td>
+                  <td ng-click="removeProp(property)"><span class="glyphicon glyphicon-remove"></span></td>
+                  <td ng-click="editProp(property)"><span class="glyphicon glyphicon-pencil"></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>

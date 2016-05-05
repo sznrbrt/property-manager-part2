@@ -1,0 +1,24 @@
+{
+  "name": "property-manager-part1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "postinstall": "bower i"
+  },
+  "engines": {
+    "node": "5.10.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "bower": "^1.7.9",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.14",
+    "morgan": "^1.7.0"
+  }
+}

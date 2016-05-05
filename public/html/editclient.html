@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Edit Property</div>
+      <div class="panel-body">
+
+        <form class="form-horizontal" role="form" ng-submit="editClient()">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Enter the name" ng-model="editedClient.name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" placeholder="Enter email" ng-model="editedClient.email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email"># Phone</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Enter phonenumber" ng-model="editedClient.phone" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Prefered # of Rooms</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Enter preffered # of rooms" ng-model="editedClient.prefNumRooms" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Status</label>
+            <div class="col-sm-10">
+              <select ng-model="editedClient.status" required>
+                <option value="" disabled selected>Select the client's status</option>
+                <option value="Homeseeker">Homeseeker</option>
+                <option value="Not looking">Not looking for new home</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Properties</label>
+            <div class="col-sm-10">
+              <input ng-disabled="true" type="text" class="form-control" placeholder="Soon you'll be able to add properties" ng-model="editedClient.properties" required>
+            </div>
+          </div>
+          <div class="form-group">
+           <div class="col-sm-offset-2 col-sm-10">
+             <button class="btn btn-success" type="submit">Edit</button>
+             <button class="btn btn-warning" ng-click="reset()">Reset Changes</button>
+             <button class="btn btn-danger" ng-click="cancel()">Cancel & Reset Changes</button>
+           </div>
+         </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

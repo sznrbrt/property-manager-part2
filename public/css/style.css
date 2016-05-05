@@ -1,0 +1,119 @@
+body {
+  font-family: 'Asap', sans-serif;
+  padding-top: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+input, select, option {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+input, select {
+    width:100%;
+    height:34px;
+    border : 1px #ccc solid;
+    vertical-align:top;
+}
+
+select#pulled {
+  width:79.5%;
+  position: relative;
+  left: 15px;
+}
+
+select#pulledClientSelect {
+  width:79.5%;
+  position: relative;
+  left: 15px;
+}
+
+html, body, .container-fluid, .row {
+    height: 100%;
+}
+
+.panel {
+  margin-top: 10px;
+}
+
+.sidebar {
+  background-color: #F7941D;
+  padding-top: 40px;
+}
+
+@media (min-width: 992px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: block;
+    background-color: #F7941D;
+  }
+}
+
+.glyphicon {
+  margin-right: 5px;
+}
+
+.navbar-inverse {
+  background-color: #2E2934;
+  border-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+  color:white;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+  color:#DF7D24;
+}
+
+.logo {
+  vertical-align: middle;
+  line-height: 50px;
+  color: #F7941D;
+  font-size: 1.2em;
+  margin-right: 30px;
+}
+
+.sidebarContent {
+  padding: 10px;
+}
+
+.addProperty {
+  margin-top: 10px;
+  border-color: #F7941D;
+  border-width: 2px;
+}
+
+.addProperty:hover {
+  border-color: #F7941D;
+}
+
+.addPropPanel {
+  margin-bottom: 10px;
+}
+
+.search {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.filterButton {
+  padding: 0;
+  font-size: 90%;
+  color:white;
+}
+
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+  top: -3px;
+  margin-right: -5px;
+}
+
+.removeClient {
+  color:red;
+  font-size: 80%;
+}

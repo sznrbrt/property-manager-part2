@@ -1,0 +1,121 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-2 sidebar">
+      <div class="row text-left sidebarContent">
+        <h4><b>Show results for:</b></h4>
+        <button type="button" class="btn btn-link filterButton" ng-click="showAll()"><b>Show All</b></button>
+        <h5>Status:</h5>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({status:'Homeseeker'})">Show only homeseekers</button>
+        <h5>Room preference: </h5>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({prefNumRooms: {$lt: 3}})">Rooms < 3</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({prefNumRooms: {$gt: 3}})">Rooms > 3</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({prefNumRooms: {$gt: 5}})">Rooms > 5</button><br>
+        <button type="button" class="btn btn-link filterButton" ng-click="showOnlyFiltered({prefNumRooms: {$gt: 8}})">Rooms > 8</button>
+
+      </div>
+    </div>
+
+    <div class="col-md-10 col-md-offset-2 content">
+      <div class="row">
+
+        <div class="col-xs-12 addPropPanel">
+          <button class="btn btn-default addProperty" ng-click="openAddClient()">
+            <span class="glyphicon glyphicon-plus"></span> Add client
+          </button>
+        </div>
+        <div class="col-xs-12" ng-if="addingClient">
+          <div class="row text-center">
+            <h4>New client:</h4>
+          </div>
+          <form class="form-horizontal" role="form" ng-submit="addNewClient()">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter the name" ng-model="newClient.name" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" placeholder="Enter email" ng-model="newClient.email" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email"># Phone</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter phonenumber" ng-model="newClient.phone" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Prefered # of Rooms</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter preffered # of rooms" ng-model="newClient.prefNumRooms" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Status</label>
+              <select id="pulledClientSelect" ng-model="newClient.status" required>
+                <option value="" disabled selected>Select the client's status</option>
+                <option value="Homeseeker">Homeseeker</option>
+                <option value="Not looking">Not looking for new home</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Properties</label>
+              <div class="col-sm-10">
+                <input ng-disabled="true" type="text" class="form-control" placeholder="Soon you'll be able to add properties" ng-model="newClient.properties" required>
+              </div>
+            </div>
+            <div class="form-group">
+             <div class="col-sm-offset-2 col-sm-10">
+               <button class="btn btn-danger" ng-click="clear()">Cancel</button>
+               <button class="btn btn-warning" type="submit">Add</button>
+             </div>
+           </div>
+          </form>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group search">
+              <label>Search:</label>
+              <input type="text" class="form-control" ng-model='searchFilter'>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <table class="table table-hover">
+              <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Preffered # of rooms</th>
+                <th>Status</th>
+                <th ng-hide='true'>Properties</th>
+                <th></th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="client in clients | filter:searchFilter | orderBy:category track by $index">
+                  <td>{{ client.name }}</td>
+                  <td>{{ client.email }}</td>
+                  <td>{{ client.phone }}</td>
+                  <td>{{ client.prefNumRooms }}</td>
+                  <td>{{ client.status }}</td>
+                  <td ng-hide='true'>{{ client.properties }}</td>
+                  <td ng-click="removeClient(client)"><span class="glyphicon glyphicon-remove"></span></td>
+                  <td ng-click="editClient(client)"><span class="glyphicon glyphicon-pencil"></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
