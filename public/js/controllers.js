@@ -126,7 +126,7 @@ app.controller('editPropertyCtrl', function($scope, $rootScope, Properties, $sta
 
 })
 
-app.controller('clientsCtrl', function($scope, $rootScope, $state, $stateParams, StoreData, Clients) {
+app.controller('clientsCtrl', function($scope, $rootScope, $state, $stateParams, StoreData, Clients, Properties) {
   $scope.newClient = {};
   Clients.getAll()
     .then((res) => {
@@ -140,6 +140,20 @@ app.controller('clientsCtrl', function($scope, $rootScope, $state, $stateParams,
     Clients.getAll()
       .then((res) => {
         $scope.clients = res.data;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  $scope.removeProperty = (propId, client, property) => {
+    var clientIdx = $scope.clients.indexOf(client);
+    var propIdx = $scope.clients[clientIdx].properties.indexOf(property);
+
+    Properties.removeClient(propId, client._id)
+      .then((res) => {
+        $scope.clients[clientIdx].properties.splice(propIdx, 1);
+        console.log(res);
       })
       .catch(err => {
         console.error(err);

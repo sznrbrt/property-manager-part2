@@ -23,7 +23,7 @@ select#pulled {
   left: 15px;
 }
 
-select#pulledClientSelect {
+select.pulledClientSelect {
   width:79.5%;
   position: relative;
   left: 15px;
