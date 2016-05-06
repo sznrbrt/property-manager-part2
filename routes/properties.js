@@ -73,7 +73,7 @@ router.put('/:propId/addclient/:clientId', (req, res) => {
 })
 
 // PUT /api/properties/:propId/removeclient/:clientId
-router.put('/:propId/removeclient/:clientId', (req, res) => {
+router.delete('/:propId/removeclient/:clientId', (req, res) => {
   var propId = req.params.propId;
   var clientId = req.params.clientId;
 

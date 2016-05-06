@@ -9,7 +9,7 @@ var Client = require('../models/client');
 router.get('/', (req, res) => {
   Client.find({}, (err, clients) => {
     return err ? res.status(400).send(err) : res.send(clients);
-  });
+  }).populate('properties');
 })
 
 router.route('/:id')

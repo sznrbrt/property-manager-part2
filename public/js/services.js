@@ -21,7 +21,7 @@ app.service('Properties', function($http) {
   }
 
   this.removeClient = (propId, clientId) => {
-    return $http.put(`/api/properties/${propId}/removeclient/${clientId}`);
+    return $http.delete(`/api/properties/${propId}/removeclient/${clientId}`);
   }
 })
 

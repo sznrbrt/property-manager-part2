@@ -96,7 +96,7 @@
                 <th>Phone</th>
                 <th>Preffered # of rooms</th>
                 <th>Status</th>
-                <th ng-hide='true'>Properties</th>
+                <th>Properties</th>
                 <th></th>
                 <th></th>
               </thead>
@@ -107,7 +107,11 @@
                   <td>{{ client.phone }}</td>
                   <td>{{ client.prefNumRooms }}</td>
                   <td>{{ client.status }}</td>
-                  <td ng-hide='true'>{{ client.properties }}</td>
+                  <td>
+                    <div ng-repeat="property in client.properties">
+                      {{ property.address }} <span><a class="removeClient" ng-click="removeProperty(property._id, client, property)">Remove</a></span></td>
+                    </div>
+                  </td>
                   <td ng-click="removeClient(client)"><span class="glyphicon glyphicon-remove"></span></td>
                   <td ng-click="editClient(client)"><span class="glyphicon glyphicon-pencil"></span></td>
                 </tr>
