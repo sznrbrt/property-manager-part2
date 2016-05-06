@@ -12,6 +12,13 @@ router.get('/', (req, res) => {
   });
 })
 
+router.route('/:id')
+  .get((req, res) => {
+    Client
+      .findById(req.params.id)
+      .exec(res.handle)
+  });
+
 // POST /api/clients/filtered
 router.post('/filtered', (req, res) => {
   var find = req.body || {};
@@ -43,6 +50,15 @@ router.delete('/:id', (req, res) => {
 router.put('/:id', (req, res) => {
   var id = req.params.id;
   Client.findByIdAndUpdate(id, { $set: req.body }, {new: true}, (err, client) => {
+    if(err) return res.status(400).send(err);
+    else res.send(client);
+  })
+})
+
+// PUT /api/client/:id
+router.delete('/:id/removeproperty', (req, res) => {
+  var id = req.params.id;
+  Client.findByIdAndUpdate(id, { $set: {properties: new Array()} }, {new: true}, (err, client) => {
     if(err) return res.status(400).send(err);
     else res.send(client);
   })

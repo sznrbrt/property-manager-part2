@@ -68,8 +68,15 @@ app.controller('propertiesCtrl', function($scope, $rootScope, $state, $statePara
     newProp.tenants = tenantsArr;
     Properties.create(newProp)
       .then((res) => {
-        $scope.properties.push(res.data);
-        $scope.clear();
+        Properties.getAll()
+          .then((res) => {
+            $scope.properties = res.data;
+            console.log($scope.properties);
+            $scope.clear();
+          })
+          .catch(err => {
+            console.error(err);
+          });
       });
   }
 

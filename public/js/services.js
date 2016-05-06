@@ -30,6 +30,9 @@ app.service('Clients', function($http) {
   this.getAll = () => {
     return $http.get('./api/clients/');
   }
+  this.getById = (id) => {
+    return $http.get(`./api/clients/${id}`);
+  }
   this.getFiltered = (filterObj) => {
     return $http.post('./api/clients/filtered', filterObj);
   }

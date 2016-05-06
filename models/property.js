@@ -13,13 +13,18 @@ var propertySchema = new mongoose.Schema({
 
 propertySchema.statics.addClient = function(propId, clientId, callback) {
   Property.findById(propId, (err, property) => {
-    if(err) return callback(err)
-    property.tenants.push(clientId);
-
-    property.save((err, savedProperty) => {
-      callback(err || savedProperty);
-    })
-  });
+      if(err) return callback(err)
+      console.log(property.tenants.indexOf(clientId));
+      if(property.tenants.indexOf(clientId) === -1){
+        property.tenants.push(clientId);
+      }
+      property.save((err, savedProperty) => {
+        Property.findById(savedProperty._id, (err, populatedProperty) => {
+          var client = populatedProperty.tenants[0];
+          client.recordProperty(propId, callback(err, populatedProperty));
+        }).populate('tenants');
+      })
+  }).populate('tenants');
 }
 
 propertySchema.statics.removeClient = function(propId, clientId, callback) {

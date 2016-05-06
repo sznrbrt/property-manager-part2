@@ -119,7 +119,7 @@
                   <td>{{ property.rentPrice | currency }}</td>
                   <td>{{ property.utilCost | currency }}</td>
                   <td>
-                    <div ng-repeat="tenant in property.tenants track by $index">
+                    <div ng-repeat="tenant in property.tenants">
                       {{ tenant.name }} <span><a class="removeClient" ng-click="removeTenant(property._id, tenant, property)">Remove</a></span></td>
                     </div>
                   </td>

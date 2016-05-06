@@ -8,8 +8,18 @@ var clientSchema = new mongoose.Schema({
   phone: { type: String, required: true},
   prefNumRooms: { type: Number, required: true},
   status: { type: String },
-  properties: [{ type: mongoose.Schema.Types.ObjectId, ref:'Property'}]  
+  properties: [{ type: mongoose.Schema.Types.ObjectId, ref:'Property'}]
 });
+
+clientSchema.methods.recordProperty = function(propId,cb) {
+  this.properties.push(propId);
+  this.save(cb);
+}
+
+clientSchema.methods.removeProperty = function(cb) {
+  this.properties.pop();
+  this.save(cb);
+}
 
 var Client = mongoose.model('Client', clientSchema);
 

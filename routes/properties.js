@@ -29,8 +29,22 @@ router.post('/filtered', (req, res) => {
 router.post('/', (req, res) => {
   var property = new Property(req.body);
   property.save({new: true}, (err, property) => {
-    return err ? res.status(400).send(err) : res.send(property);
-  })
+    console.log('property:', property.tenants);
+    if(property.tenants.length !== 0) {
+      Property.findById(property._id, (err, populatedProperty) => {
+        var clients = populatedProperty.tenants;
+        clients.forEach((client, i, arr) => {
+          client.recordProperty(property._id, (err) => {
+            if(i === arr.length -1 ) return err ? res.status(400).send(err) : res.send(property);
+          });
+        });
+
+      }).populate('tenants');
+    } else {
+      return err ? res.status(400).send(err) : res.send(property);
+    }
+
+  });
 })
 
 // DELETE /api/properties/:id
@@ -52,8 +66,9 @@ router.put('/:id', (req, res) => {
 router.put('/:propId/addclient/:clientId', (req, res) => {
   var propId = req.params.propId;
   var clientId = req.params.clientId;
-  Property.addClient(propId, clientId,   (err, savedProperty) => {
-        res.status(err ? 400 : 200).send(err || savedProperty);
+  Property.addClient(propId, clientId, (err, data) => {
+    console.log('err:',err);
+    res.status(err ? 400 : 200).send(err || data);
   });
 })
 
@@ -61,9 +76,15 @@ router.put('/:propId/addclient/:clientId', (req, res) => {
 router.put('/:propId/removeclient/:clientId', (req, res) => {
   var propId = req.params.propId;
   var clientId = req.params.clientId;
-  Property.removeClient(propId, clientId, (err) => {
-    res.status(err ? 400 : 200).send(err || 'Success!');
-  });
+
+  Property.findById(propId, (err, populatedProperty) => {
+    var client = populatedProperty.tenants[0];
+    client.removeProperty((err) => {;
+      Property.removeClient(propId, clientId, (err) => {
+        res.status(err ? 400 : 200).send(err || 'Success!');
+      });
+    });
+  }).populate('tenants');
 })
 
 
